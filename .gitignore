@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Build Artifacts
+*.zip
+dist/
+build/
+
+# Logs
+*.log
+
+# Environment Variables
+.env
+
+# Pytest
+.pytest_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# AWS SAM
+.aws-sam/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# GitHub Actions Artifacts
+artifacts/
