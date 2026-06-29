@@ -1,0 +1,41 @@
+record_id,city,temperature,humidity
+1001,Sydney,25.6,78
+1002,Melbourne,19.4,65
+1003,Brisbane,31.8,72
+1004,Perth,29.1,40
+1005,Adelaide,22.7,58
+1006,Canberra,14.3,81
+1007,Hobart,11.5,69
+1008,Darwin,35.2,84
+1009,Delhi,41.3,55
+1010,Mumbai,32.8,88
+1011,Bengaluru,24.6,74
+1012,Chennai,36.1,79
+1013,Kolkata,33.5,82
+1014,Hyderabad,30.2,61
+1015,Pune,27.4,52
+1016,Jaipur,39.8,34
+1017,Ahmedabad,42.5,37
+1018,Lucknow,34.2,67
+1019,Patna,33.1,71
+1020,Bhubaneswar,31.7,76
+1021,New York,18.2,59
+1022,London,13.4,77
+1023,Paris,17.9,63
+1024,Berlin,15.6,66
+1025,Tokyo,26.8,73
+1026,Singapore,30.4,87
+1027,Dubai,43.8,28
+1028,Toronto,12.1,57
+1029,Cape Town,21.4,62
+1030,São Paulo,28.5,69
+1031,,26.3,70
+1032,Jaipur,abc,44
+1033,Mumbai,29.2,120
+1034,Delhi,-120,58
+1035,Pune,24.7,
+1036,,,
+1037,Chennai,31.0,82
+1038,Patna,29.5,75
+1039,Noida,35.6,49
+1040,Gurugram,36.2,53
