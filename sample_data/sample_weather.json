@@ -1,0 +1,14 @@
+[
+  {
+    "record_id": "1",
+    "city": "Sydney",
+    "temperature": 28,
+    "humidity": 65
+  },
+  {
+    "record_id": "2",
+    "city": "Melbourne",
+    "temperature": 20,
+    "humidity": 55
+  }
+]
