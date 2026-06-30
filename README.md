@@ -55,6 +55,22 @@ The solution uses **Amazon S3** as the data source, **AWS Lambda** for ETL proce
 
 ---
 
+# Supported Raw Files
+
+The following file types are supported in the S3 **`raw/`** folder:
+
+- ✅ `.csv`
+- ✅ `.json`
+-  ✅ `.xlsv`
+
+```text
+raw/
+├── weather_data.csv
+└── weather_data.json
+└── weather_data.xlsv
+
+```
+
 # Project Workflow
 
 ```
