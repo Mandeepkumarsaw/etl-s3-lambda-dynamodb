@@ -93,9 +93,37 @@ def lambda_handler(event, context):
 # -----------------------------------------------------------------------------
 # EXTRACT
 # -----------------------------------------------------------------------------
+# def extract(bucket, key):
+#     """
+#     Read CSV file from Amazon S3.
+#     """
+
+#     response = s3_client.get_object(
+#         Bucket=bucket,
+#         Key=key
+#     )
+
+#     csv_content = response["Body"].read().decode("utf-8")
+
+#     return list(csv.DictReader(io.StringIO(csv_content)))
+
+
 def extract(bucket, key):
     """
-    Read CSV file from Amazon S3.
+    Read supported file formats from Amazon S3.
+
+    Supported Formats
+    -----------------
+    - CSV (.csv)
+    - JSON (.json)
+    - Excel (.xlsx, .xls)
+    - TSV (.tsv)
+    - XML (.xml)
+    - Parquet (.parquet)
+
+    Returns
+    -------
+    List[dict]
     """
 
     response = s3_client.get_object(
@@ -103,9 +131,113 @@ def extract(bucket, key):
         Key=key
     )
 
-    csv_content = response["Body"].read().decode("utf-8")
+    file_bytes = response["Body"].read()
 
-    return list(csv.DictReader(io.StringIO(csv_content)))
+    extension = key.lower().split(".")[-1]
+
+    # -------------------------------------------------------------------------
+    # CSV
+    # -------------------------------------------------------------------------
+    if extension == "csv":
+
+        content = file_bytes.decode("utf-8")
+
+        return list(
+            csv.DictReader(
+                io.StringIO(content)
+            )
+        )
+
+    # -------------------------------------------------------------------------
+    # TSV
+    # -------------------------------------------------------------------------
+    elif extension == "tsv":
+
+        content = file_bytes.decode("utf-8")
+
+        return list(
+            csv.DictReader(
+                io.StringIO(content),
+                delimiter="\t"
+            )
+        )
+
+    # -------------------------------------------------------------------------
+    # JSON
+    # -------------------------------------------------------------------------
+    elif extension == "json":
+
+        content = file_bytes.decode("utf-8")
+
+        data = json.loads(content)
+
+        if isinstance(data, list):
+            return data
+
+        elif isinstance(data, dict):
+            return [data]
+
+        else:
+            raise ValueError("Unsupported JSON structure.")
+
+    # -------------------------------------------------------------------------
+    # Excel (.xlsx/.xls)
+    # -------------------------------------------------------------------------
+    elif extension in ("xlsx", "xls"):
+
+        import pandas as pd
+
+        dataframe = pd.read_excel(
+            io.BytesIO(file_bytes)
+        )
+
+        return dataframe.to_dict("records")
+
+    # -------------------------------------------------------------------------
+    # XML
+    # -------------------------------------------------------------------------
+    elif extension == "xml":
+
+        import xml.etree.ElementTree as ET
+
+        root = ET.fromstring(
+            file_bytes.decode("utf-8")
+        )
+
+        rows = []
+
+        for record in root.findall(".//record"):
+
+            rows.append(
+                {
+                    child.tag: child.text
+                    for child in record
+                }
+            )
+
+        return rows
+
+    # -------------------------------------------------------------------------
+    # Parquet
+    # -------------------------------------------------------------------------
+    elif extension == "parquet":
+
+        import pandas as pd
+
+        dataframe = pd.read_parquet(
+            io.BytesIO(file_bytes)
+        )
+
+        return dataframe.to_dict("records")
+
+    # -------------------------------------------------------------------------
+    # Unsupported Format
+    # -------------------------------------------------------------------------
+    else:
+
+        raise ValueError(
+            f"Unsupported file format: {extension}"
+        )
 
 
 # -----------------------------------------------------------------------------
