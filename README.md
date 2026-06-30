@@ -1,4 +1,6 @@
-------------------------------------------TO BE NOTED THAT THERE ARE 2 README FILE-----------------------------------------------
+------------------------------------------TO BE NOTED THAT THERE ARE 2 README FILE---------------------------------
+<img width="814" height="506" alt="image" src="https://github.com/user-attachments/assets/f6f4b3a4-c2e0-40c5-bc47-9db5cc4a3458" />
+
 
 # AWS Serverless Weather ETL Pipeline
 
