@@ -54,7 +54,7 @@ MAX_HUMIDITY = 100
 # -----------------------------------------------------------------------------
 # Lambda Handler
 # -----------------------------------------------------------------------------
-def lambda_handler(event, context):
+def handler(event, context):
 
     summary = {
         "files_processed": 0,
