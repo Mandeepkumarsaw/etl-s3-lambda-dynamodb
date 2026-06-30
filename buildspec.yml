@@ -4,14 +4,14 @@ phases:
   install:
     runtime-versions:
       python: 3.11
-
     commands:
       - echo Installing dependencies...
       - pip install --upgrade pip
+      - mkdir package
 
       - |
         if [ -f requirements.txt ]; then
-          pip install -r requirements.txt -t .
+          pip install -r requirements.txt -t package
         fi
 
   build:
@@ -19,8 +19,12 @@ phases:
       - echo Validating Lambda code...
       - python -m py_compile lambda.py
 
+      - echo Copying Lambda source...
+      - cp lambda.py package/
+
       - echo Creating deployment package...
-      - zip -r lambda.zip .
+      - cd package
+      - zip -r ../lambda.zip .
 
 artifacts:
   files:
