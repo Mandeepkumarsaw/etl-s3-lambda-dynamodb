@@ -30,6 +30,10 @@ logger.setLevel(logging.INFO)
 s3_client = boto3.client("s3")
 dynamodb = boto3.resource("dynamodb")
 
+# AWS_REGION = os.environ.get("AWS_REGION", "ap-southeast-2")
+# s3_client = boto3.client("s3", region_name=AWS_REGION)
+# dynamodb = boto3.resource("dynamodb", region_name=AWS_REGION)
+
 TABLE_NAME = os.environ.get("DYNAMODB_TABLE", "clean_records")
 
 table = dynamodb.Table(TABLE_NAME)
@@ -116,10 +120,7 @@ def extract(bucket, key):
     -----------------
     - CSV (.csv)
     - JSON (.json)
-    - Excel (.xlsx, .xls)
-    - TSV (.tsv)
-    - XML (.xml)
-    - Parquet (.parquet)
+    - Excel (.xlsx)
 
     Returns
     -------
@@ -149,20 +150,6 @@ def extract(bucket, key):
         )
 
     # -------------------------------------------------------------------------
-    # TSV
-    # -------------------------------------------------------------------------
-    elif extension == "tsv":
-
-        content = file_bytes.decode("utf-8")
-
-        return list(
-            csv.DictReader(
-                io.StringIO(content),
-                delimiter="\t"
-            )
-        )
-
-    # -------------------------------------------------------------------------
     # JSON
     # -------------------------------------------------------------------------
     elif extension == "json":
@@ -177,54 +164,16 @@ def extract(bucket, key):
         elif isinstance(data, dict):
             return [data]
 
-        else:
-            raise ValueError("Unsupported JSON structure.")
+        raise ValueError("Unsupported JSON structure.")
 
     # -------------------------------------------------------------------------
-    # Excel (.xlsx/.xls)
+    # Excel (.xlsx)
     # -------------------------------------------------------------------------
-    elif extension in ("xlsx", "xls"):
+    elif extension == "xlsx":
 
         import pandas as pd
 
         dataframe = pd.read_excel(
-            io.BytesIO(file_bytes)
-        )
-
-        return dataframe.to_dict("records")
-
-    # -------------------------------------------------------------------------
-    # XML
-    # -------------------------------------------------------------------------
-    elif extension == "xml":
-
-        import xml.etree.ElementTree as ET
-
-        root = ET.fromstring(
-            file_bytes.decode("utf-8")
-        )
-
-        rows = []
-
-        for record in root.findall(".//record"):
-
-            rows.append(
-                {
-                    child.tag: child.text
-                    for child in record
-                }
-            )
-
-        return rows
-
-    # -------------------------------------------------------------------------
-    # Parquet
-    # -------------------------------------------------------------------------
-    elif extension == "parquet":
-
-        import pandas as pd
-
-        dataframe = pd.read_parquet(
             io.BytesIO(file_bytes)
         )
 
@@ -236,7 +185,8 @@ def extract(bucket, key):
     else:
 
         raise ValueError(
-            f"Unsupported file format: {extension}"
+            f"Unsupported file format: {extension}. "
+            "Supported formats are: .csv, .json, .xlsx"
         )
 
 
