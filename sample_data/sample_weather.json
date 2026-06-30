@@ -1,14 +1,52 @@
 [
   {
-    "record_id": "1",
     "city": "Sydney",
-    "temperature": 28,
-    "humidity": 65
+    "country": "Australia",
+    "temperature": 22.5,
+    "humidity": 68,
+    "pressure": 1014,
+    "wind_speed": 5.8,
+    "weather": "Clear",
+    "timestamp": "2026-06-30T15:30:00Z"
   },
   {
-    "record_id": "2",
     "city": "Melbourne",
-    "temperature": 20,
-    "humidity": 55
+    "country": "Australia",
+    "temperature": 18.2,
+    "humidity": 74,
+    "pressure": 1018,
+    "wind_speed": 4.1,
+    "weather": "Clouds",
+    "timestamp": "2026-06-30T15:35:00Z"
+  },
+  {
+    "city": "Brisbane",
+    "country": "Australia",
+    "temperature": 26.1,
+    "humidity": 60,
+    "pressure": 1012,
+    "wind_speed": 3.5,
+    "weather": "Sunny",
+    "timestamp": "2026-06-30T15:40:00Z"
+  },
+  {
+    "city": "Perth",
+    "country": "Australia",
+    "temperature": 20.8,
+    "humidity": 55,
+    "pressure": 1016,
+    "wind_speed": 6.2,
+    "weather": "Clear",
+    "timestamp": "2026-06-30T15:45:00Z"
+  },
+  {
+    "city": "Adelaide",
+    "country": "Australia",
+    "temperature": 19.4,
+    "humidity": 63,
+    "pressure": 1015,
+    "wind_speed": 4.7,
+    "weather": "Partly Cloudy",
+    "timestamp": "2026-06-30T15:50:00Z"
   }
 ]
